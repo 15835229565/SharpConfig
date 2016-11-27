@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>SharpConfig by cemdervis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="stylesheets/normalize.css" media="screen">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">SharpConfig</h1>
+      <h2 class="project-tagline">An easy-to-use CFG/INI configuration library for .NET.</h2>
+      <a href="https://github.com/cemdervis/SharpConfig" class="btn">View on GitHub</a>
+      <a href="https://github.com/cemdervis/SharpConfig/zipball/master" class="btn">Download .zip</a>
+      <a href="https://github.com/cemdervis/SharpConfig/tarball/master" class="btn">Download .tar.gz</a>
+    </section>
+
+    <section class="main-content">
+      <p><img src="sharpconfig_logo.png" alt="sharpconfig_logo.png"></p>
+
+<p>SharpConfig is an easy-to-use CFG/INI configuration library for .NET.</p>
+
+<p>You can use SharpConfig to read, modify and save configuration files and streams, in either text or binary format.</p>
+
+<p>The library is fully compatible with .NET 2.0 and higher, and the Mono Framework.</p>
+
+<h2>
+<a id="installing-via-nuget" class="anchor" href="#installing-via-nuget" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing via NuGet</h2>
+
+<p>You can install SharpConfig via the following NuGet command:</p>
+
+<blockquote>
+<p>Install-Package sharpconfig</p>
+</blockquote>
+
+<p><a href="https://www.nuget.org/packages/sharpconfig/">NuGet Page</a></p>
+
+<h2>
+<a id="an-example-configuration" class="anchor" href="#an-example-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>An example Configuration</h2>
+
+<div class="highlight highlight-source-ini"><pre><span class="pl-en">[General]</span>
+<span class="pl-c"># a comment</span>
+<span class="pl-k">SomeString</span> = Hello World!
+<span class="pl-k">SomeInteger</span> = 10 <span class="pl-c"># an inline comment</span>
+<span class="pl-k">SomeFloat</span> = 20.05
+<span class="pl-k">SomeBoolean</span> = true</pre></div>
+
+<p>To read these values, your C# code would look like:</p>
+
+<div class="highlight highlight-source-cs"><pre>Configuration config = Configuration.LoadFromFile(<span class="pl-s"><span class="pl-pds">"</span>sample.cfg<span class="pl-pds">"</span></span>);
+Section section = config[<span class="pl-s"><span class="pl-pds">"</span>General<span class="pl-pds">"</span></span>];
+
+<span class="pl-k">string</span> someString = section[<span class="pl-s"><span class="pl-pds">"</span>SomeString<span class="pl-pds">"</span></span>].StringValue;
+<span class="pl-k">int</span> someInteger = section[<span class="pl-s"><span class="pl-pds">"</span>SomeInteger<span class="pl-pds">"</span></span>].IntValue;
+<span class="pl-k">float</span> someFloat = section[<span class="pl-s"><span class="pl-pds">"</span>SomeFloat<span class="pl-pds">"</span></span>].FloatValue;
+<span class="pl-k">bool</span> someBool = section[<span class="pl-s"><span class="pl-pds">"</span>SomeBoolean<span class="pl-pds">"</span></span>].BoolValue;</pre></div>
+
+<h2>
+<a id="iterating-through-a-configuration" class="anchor" href="#iterating-through-a-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Iterating through a Configuration</h2>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-k">foreach</span> (<span class="pl-k">var</span> section <span class="pl-k">in</span> myConfig)
+{
+    <span class="pl-k">foreach</span> (<span class="pl-k">var</span> setting <span class="pl-k">in</span> section)
+    {
+        <span class="pl-c">// ...</span>
+    }
+}</pre></div>
+
+<h2>
+<a id="creating-a-configuration-in-memory" class="anchor" href="#creating-a-configuration-in-memory" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Creating a Configuration in-memory</h2>
+
+<div class="highlight highlight-source-cs"><pre><span class="pl-c">// Create the configuration.</span>
+<span class="pl-k">var</span> myConfig = <span class="pl-k">new</span> Configuration();
+
+<span class="pl-c">// Set some values.</span>
+<span class="pl-c">// This will automatically create the sections and settings.</span>
+myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Width<span class="pl-pds">"</span></span>].IntValue = <span class="pl-c1">1920</span>;
+myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Height<span class="pl-pds">"</span></span>].IntValue = <span class="pl-c1">1080</span>;
+
+<span class="pl-c">// Set an array value.</span>
+myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Formats<span class="pl-pds">"</span></span>].StringValueArray = <span class="pl-k">new</span>[] { <span class="pl-s"><span class="pl-pds">"</span>RGB32<span class="pl-pds">"</span></span>, <span class="pl-s"><span class="pl-pds">"</span>RGBA32<span class="pl-pds">"</span></span> };
+
+<span class="pl-c">// Get the values just to test.</span>
+<span class="pl-k">int</span> width = myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Width<span class="pl-pds">"</span></span>].IntValue;
+<span class="pl-k">int</span> height = myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Height<span class="pl-pds">"</span></span>].IntValue;
+<span class="pl-k">string</span>[] formats = myConfig[<span class="pl-s"><span class="pl-pds">"</span>Video<span class="pl-pds">"</span></span>][<span class="pl-s"><span class="pl-pds">"</span>Formats<span class="pl-pds">"</span></span>].StringValueArray;
+<span class="pl-c">// ...</span></pre></div>
+
+<h2>
+<a id="saving-a-configuration" class="anchor" href="#saving-a-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Saving a Configuration</h2>
+
+<div class="highlight highlight-source-cs"><pre>myConfig.SaveToFile(<span class="pl-s"><span class="pl-pds">"</span>myConfig.cfg<span class="pl-pds">"</span></span>);        <span class="pl-c">// Save to a text-based file.</span>
+myConfig.SaveToStream(myStream);            <span class="pl-c">// Save to a text-based stream.</span>
+myConfig.SaveToBinaryFile(<span class="pl-s"><span class="pl-pds">"</span>myConfig.cfg<span class="pl-pds">"</span></span>);  <span class="pl-c">// Save to a binary file.</span>
+myConfig.SaveToBinaryStream(myStream);      <span class="pl-c">// Save to a binary stream.</span></pre></div>
+
+<h2>
+<a id="more" class="anchor" href="#more" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>More!</h2>
+
+<p>SharpConfig has more features, such as <strong>arrays</strong>, <strong>enums</strong> and <strong>object mapping</strong>.</p>
+
+<p>For details and examples, please visit the <a href="https://github.com/cemdervis/SharpConfig/wiki">Wiki</a>.
+There are also use case examples available in the <a href="https://github.com/cemdervis/SharpConfig/blob/master/Example/Program.cs">Example File</a>.</p>
+
+      <footer class="site-footer">
+        <span class="site-footer-owner"><a href="https://github.com/cemdervis/SharpConfig">SharpConfig</a> is maintained by <a href="https://github.com/cemdervis">cemdervis</a>.</span>
+
+        <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the <a href="https://github.com/jasonlong/cayman-theme">Cayman theme</a> by <a href="https://twitter.com/jasonlong">Jason Long</a>.</span>
+      </footer>
+
+    </section>
+
+  
+  </body>
+</html>
