@@ -19,7 +19,7 @@
     </section>
 
     <section class="main-content">
-      <p><img src="sharpconfig_logo.png" alt="sharpconfig_logo.png"></p>
+      <p><img src="SharpConfigLogo.png" alt="sharpconfig_logo.png"></p>
 
 <p>SharpConfig is an easy-to-use CFG/INI configuration library for .NET.</p>
 
@@ -30,11 +30,7 @@
 <h2>
 <a id="installing-via-nuget" class="anchor" href="#installing-via-nuget" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing via NuGet</h2>
 
-<p>You can install SharpConfig via the following NuGet command:</p>
-
-<blockquote>
-<p>Install-Package sharpconfig</p>
-</blockquote>
+<p>You can install SharpConfig via the following NuGet command: <code>Install-Package sharpconfig</code></p>
 
 <p><a href="https://www.nuget.org/packages/sharpconfig/">NuGet Page</a></p>
 
@@ -46,7 +42,9 @@
 <span class="pl-k">SomeString</span> = Hello World!
 <span class="pl-k">SomeInteger</span> = 10 <span class="pl-c"># an inline comment</span>
 <span class="pl-k">SomeFloat</span> = 20.05
-<span class="pl-k">SomeBoolean</span> = true</pre></div>
+<span class="pl-k">SomeBoolean</span> = true
+<span class="pl-k">SomeArray</span> = { 1, 2, 3 }
+<span class="pl-k">Day</span> = Monday</pre></div>
 
 <p>To read these values, your C# code would look like:</p>
 
@@ -56,7 +54,11 @@ Section section = config[<span class="pl-s"><span class="pl-pds">"</span>General
 <span class="pl-k">string</span> someString = section[<span class="pl-s"><span class="pl-pds">"</span>SomeString<span class="pl-pds">"</span></span>].StringValue;
 <span class="pl-k">int</span> someInteger = section[<span class="pl-s"><span class="pl-pds">"</span>SomeInteger<span class="pl-pds">"</span></span>].IntValue;
 <span class="pl-k">float</span> someFloat = section[<span class="pl-s"><span class="pl-pds">"</span>SomeFloat<span class="pl-pds">"</span></span>].FloatValue;
-<span class="pl-k">bool</span> someBool = section[<span class="pl-s"><span class="pl-pds">"</span>SomeBoolean<span class="pl-pds">"</span></span>].BoolValue;</pre></div>
+<span class="pl-k">bool</span> someBool = section[<span class="pl-s"><span class="pl-pds">"</span>SomeBoolean<span class="pl-pds">"</span></span>].BoolValue;
+<span class="pl-k">int</span>[] someIntArray = section[<span class="pl-s"><span class="pl-pds">"</span>SomeArray<span class="pl-pds">"</span></span>].IntValueArray;
+<span class="pl-k">string</span>[] someStringArray = section[<span class="pl-s"><span class="pl-pds">"</span>SomeArray<span class="pl-pds">"</span></span>].StringValueArray;
+DayOfWeek day = section[<span class="pl-s"><span class="pl-pds">"</span>Day<span class="pl-pds">"</span></span>].GetValue&lt;DayOfWeek&gt;();
+<span class="pl-c">// ...</span></pre></div>
 
 <h2>
 <a id="iterating-through-a-configuration" class="anchor" href="#iterating-through-a-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Iterating through a Configuration</h2>
