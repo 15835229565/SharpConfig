@@ -30,16 +30,9 @@
 
 <p>The library is fully compatible with .NET 2.0 and higher, and the Mono Framework.</p>
 
-<h2>
-<a id="installing-via-nuget" class="anchor" href="#installing-via-nuget" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Installing via NuGet</h2>
-
-<p>You can install SharpConfig via the following NuGet command:</p>
-
 <blockquote>
-<p>Install-Package sharpconfig</p>
+<p>SharpConfig is also available at NuGet! Just search for "sharpconfig".</p>
 </blockquote>
-
-<p><a href="https://www.nuget.org/packages/sharpconfig/">NuGet Page</a></p>
 
 <h2>
 <a id="an-example-configuration" class="anchor" href="#an-example-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>An example Configuration</h2>
@@ -51,7 +44,12 @@
 <span class="pl-k">SomeFloat</span> = 20.05
 <span class="pl-k">SomeBoolean</span> = true
 <span class="pl-k">SomeArray</span> = { 1, 2, 3 }
-<span class="pl-k">Day</span> = Monday</pre></div>
+<span class="pl-k">Day</span> = Monday
+<span class="pl-k"></span>
+<span class="pl-en">[Person]</span>
+<span class="pl-k">Name</span> = Peter
+<span class="pl-k">Age</span> = 50
+</pre></div>
 
 <p>To read these values, your C# code would look like:</p>
 
@@ -65,7 +63,12 @@
 <span class="pl-k">int</span>[] someIntArray = section[<span class="pl-s"><span class="pl-pds">"</span>SomeArray<span class="pl-pds">"</span></span>].IntValueArray;
 <span class="pl-k">string</span>[] someStringArray = section[<span class="pl-s"><span class="pl-pds">"</span>SomeArray<span class="pl-pds">"</span></span>].StringValueArray;
 DayOfWeek day = section[<span class="pl-s"><span class="pl-pds">"</span>Day<span class="pl-pds">"</span></span>].GetValue&ltDayOfWeek&gt();
-<span class="pl-c">// ...</span></pre></div>
+<span class="pl-k"></span>
+<span class="pl-c">// Entire user-defined objects can be created from sections and vice versa.</span>
+<span class="pl-c">// See the wiki for more details.</span>
+<span class="pl-k">var</span> person = config[<span class="pl-s"><span class="pl-pds">"</span>Person<span class="pl-pds">"</span></span>].ToObject&ltPerson&gt();
+<span class="pl-c">// ...</span>
+</pre></div>
 
 <h2>
 <a id="iterating-through-a-configuration" class="anchor" href="#iterating-through-a-configuration" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Iterating through a Configuration</h2>
